@@ -26,13 +26,13 @@ module "vpc" {
   enable_nat_gateway = true
 
   tags = {
-    Terraform = "true"
+    Terraform   = "true"
     Environment = var.environment.name
   }
 }
 
 module "web_security_group" {
-  source      = "terraform-aws-modules/security-group/aws"
+  source = "terraform-aws-modules/security-group/aws"
 
   name        = "${var.environment.name}-web-sg"
   description = "Allow HTTP/HTTPS inbound and ALL outbound"
@@ -41,14 +41,14 @@ module "web_security_group" {
   ingress_cidr_blocks = ["0.0.0.0/0"]
   ingress_rules       = ["http-80-tcp", "https-443-tcp"]
 
-  egress_cidr_blocks  = ["0.0.0.0/0"]
-  egress_rules        = ["all-all"]
+  egress_cidr_blocks = ["0.0.0.0/0"]
+  egress_rules       = ["all-all"]
 }
 
 module "autoscaling" {
   source  = "terraform-aws-modules/autoscaling/aws"
   version = "6.9.0"
-  
+
   name = "${var.environment.name}-web-asg"
 
   min_size            = 3
@@ -69,9 +69,9 @@ module "alb" {
 
   load_balancer_type = "application"
 
-  vpc_id             = module.vpc.vpc_id
-  subnets            = module.vpc.public_subnets
-  security_groups    = [module.web_security_group.security_group_id]
+  vpc_id          = module.vpc.vpc_id
+  subnets         = module.vpc.public_subnets
+  security_groups = [module.web_security_group.security_group_id]
 
   target_groups = [
     {
@@ -91,7 +91,7 @@ module "alb" {
   ]
 
   tags = {
-    Terraform = "true"
+    Terraform   = "true"
     Environment = var.environment.name
   }
 }

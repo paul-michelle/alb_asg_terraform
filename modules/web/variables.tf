@@ -13,9 +13,9 @@ variable "web_ami" {
   })
 
   default = {
-    name = "bitnami-tomcat-*-x86_64-hvm-ebs-nami"
+    name      = "bitnami-tomcat-*-x86_64-hvm-ebs-nami"
     virt_type = "hvm"
-    owner = "979382823631" # Bitnami
+    owner     = "979382823631" # Bitnami
   }
 }
 
