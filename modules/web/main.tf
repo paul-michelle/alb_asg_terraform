@@ -51,8 +51,8 @@ module "autoscaling" {
 
   name = "${var.environment.name}-web-asg"
 
-  min_size            = 3
-  max_size            = 5
+  min_size            = var.asg_min_size
+  max_size            = var.asg_max_size
   vpc_zone_identifier = module.vpc.public_subnets
   target_group_arns   = module.alb.target_group_arns
   security_groups     = [module.web_security_group.security_group_id]

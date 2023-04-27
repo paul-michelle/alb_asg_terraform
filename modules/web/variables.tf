@@ -32,3 +32,13 @@ variable "environment" {
     network_prefix = "10.0"
   }
 }
+
+variable "asg_min_size" {
+  description = "Auto-scaling group min size"
+  default     = 3
+}
+
+variable "asg_max_size" {
+  description = "Auto-scaling group max size"
+  default     = 5
+}
